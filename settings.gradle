@@ -1,0 +1,2 @@
+include ':app', ':knot-thing'
+rootProject.name='knot-thing-lib-android'
