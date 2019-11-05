@@ -1,5 +1,7 @@
 package com.example.knot_thing
 
+import org.json.JSONObject
+
 /**
  * This interface acts as an abstraction on how to compare two KNoTValues. It departs from the idea
  * that each KNoTValue will have a lower and an upper bound and that the comparision of these limits
