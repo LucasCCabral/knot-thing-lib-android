@@ -38,4 +38,12 @@ class KNoTAMQPController( val kNoTAMQP: KNoTAMQP) : KNoTMessager {
         )
     }
 
+    override fun publishData(kNoTThingUpdateData: KNoTThingUpdateData) {
+        kNoTAMQP.publish(
+            Gson().toJson(kNoTThingUpdateData),
+            kNoTAMQP.EXCHANGE_NAME_FOG,
+            kNoTAMQP.BINDING_KEY_DATA_PUBLISH
+        )
+    }
+
 }

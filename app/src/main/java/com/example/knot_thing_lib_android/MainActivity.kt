@@ -9,10 +9,13 @@ import com.example.knot_thing_lib_android.KNoTControlMessages.KNoTThingRegister
 import com.example.knot_thing_lib_android.KNoTControlMessages.KNoTThingSchema
 import com.example.knot_thing_lib_android.KNoTControlMessages.KNoTThingUpdateSchema
 import com.example.knot_thing_lib_android.KNoTControlMessages.KNoTThingUnregister
+import com.example.knot_thing_lib_android.KNoTControlMessages.KNoTThingData
+import com.example.knot_thing_lib_android.KNoTControlMessages.KNoTThingUpdateData
 import kotlinx.android.synthetic.main.activity_main.register_button
 import kotlinx.android.synthetic.main.activity_main.unregister_button
 import kotlinx.android.synthetic.main.activity_main.authenticate_button
 import kotlinx.android.synthetic.main.activity_main.schema_update_button
+import kotlinx.android.synthetic.main.activity_main.data_publish_button
 import org.jetbrains.anko.doAsync
 
 class MainActivity : AppCompatActivity() {
@@ -36,6 +39,10 @@ class MainActivity : AppCompatActivity() {
             "test"))
 
         val kNoTThingUpdateSchema = KNoTThingUpdateSchema("1h3kkx1gi13idqe", kNoTThingSchema)
+        val knotData = mutableListOf(KNoTThingData(12,true),
+            KNoTThingData(2,false),
+            KNoTThingData(12,true))
+        val kNoTThingUpdateData = KNoTThingUpdateData("1p23jp12k3p12", knotData)
 
         register_button.setOnClickListener {
             doAsync { kNoTMessager.register(kNoTThingRegister) }
@@ -51,6 +58,10 @@ class MainActivity : AppCompatActivity() {
 
         schema_update_button.setOnClickListener {
             doAsync { kNoTMessager.updateSchema(kNoTThingUpdateSchema) }
+        }
+
+        data_publish_button.setOnClickListener {
+            doAsync { kNoTMessager.publishData(kNoTThingUpdateData) }
         }
 
     }
