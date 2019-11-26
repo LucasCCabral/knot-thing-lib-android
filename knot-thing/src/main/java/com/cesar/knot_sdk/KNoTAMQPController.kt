@@ -3,6 +3,7 @@ package com.cesar.knot_sdk
 import com.cesar.knot_sdk.knot_messages.KNoTThingAuth
 import com.cesar.knot_sdk.knot_messages.KNoTThingRegister
 import com.cesar.knot_sdk.knot_messages.KNoTThingUnregister
+import com.cesar.knot_sdk.knot_messages.KNoTThingUpdateData
 import com.cesar.knot_sdk.knot_messages.KNoTThingUpdateSchema
 import com.google.gson.Gson
 
@@ -40,6 +41,14 @@ class KNoTAMQPController( val kNoTAMQP: KNoTAMQP) : KNoTMessager {
             Gson().toJson(kNoTThingSchema),
             kNoTAMQP.EXCHANGE_NAME_CLOUD,
             kNoTAMQP.BINDING_KEY_SCHEMA_UPDATE
+        )
+    }
+
+    override fun publishData(kNoTThingUpdateData: KNoTThingUpdateData) {
+        kNoTAMQP.publish(
+            Gson().toJson(kNoTThingUpdateData),
+            kNoTAMQP.EXCHANGE_NAME_CLOUD,
+            kNoTAMQP.BINDING_KEY_DATA_PUBLISH
         )
     }
 

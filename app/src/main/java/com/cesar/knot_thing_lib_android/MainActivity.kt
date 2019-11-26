@@ -9,14 +9,17 @@ import com.cesar.knot_sdk.KNoTTypes.KNOT_TYPE_ID_SWITCH
 import com.cesar.knot_sdk.KNoTTypes.KNOT_UNIT_NOT_APPLICABLE
 import com.cesar.knot_sdk.KNoTTypes.KNOT_VALUE_TYPE_BOOL
 import com.cesar.knot_sdk.knot_messages.KNoTThingAuth
+import com.cesar.knot_sdk.knot_messages.KNoTThingData
 import com.cesar.knot_sdk.knot_messages.KNoTThingRegister
 import com.cesar.knot_sdk.knot_messages.KNoTThingSchema
 import com.cesar.knot_sdk.knot_messages.KNoTThingUnregister
+import com.cesar.knot_sdk.knot_messages.KNoTThingUpdateData
 import com.cesar.knot_sdk.knot_messages.KNoTThingUpdateSchema
 import kotlinx.android.synthetic.main.activity_main.register_button
 import kotlinx.android.synthetic.main.activity_main.unregister_button
 import kotlinx.android.synthetic.main.activity_main.authenticate_button
 import kotlinx.android.synthetic.main.activity_main.schema_update_button
+import kotlinx.android.synthetic.main.activity_main.data_publish_button
 import org.jetbrains.anko.doAsync
 
 class MainActivity : AppCompatActivity() {
@@ -51,6 +54,12 @@ class MainActivity : AppCompatActivity() {
         )
 
         val kNoTThingUpdateSchema = KNoTThingUpdateSchema(THING_ID, kNoTThingSchema)
+        val knotData = mutableListOf(
+            KNoTThingData(SENSOR_ID, true),
+            KNoTThingData(SENSOR_ID, false),
+            KNoTThingData(SENSOR_ID, true)
+        )
+        val kNoTThingUpdateData = KNoTThingUpdateData(THING_ID, knotData)
 
         register_button.setOnClickListener {
             doAsync { kNoTMessager.register(kNoTThingRegister) }
@@ -66,6 +75,10 @@ class MainActivity : AppCompatActivity() {
 
         schema_update_button.setOnClickListener {
             doAsync { kNoTMessager.updateSchema(kNoTThingUpdateSchema) }
+        }
+
+        data_publish_button.setOnClickListener {
+            doAsync { kNoTMessager.publishData(kNoTThingUpdateData) }
         }
 
     }
