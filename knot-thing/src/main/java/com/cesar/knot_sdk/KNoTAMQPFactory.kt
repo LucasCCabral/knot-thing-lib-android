@@ -40,6 +40,10 @@ class KNoTAMQPFactory() {
                 kNoTAMQP.EXCHANGE_NAME_FOG,
                 kNoTAMQP.BINDING_KEY_SCHEMA_UPDATE)
 
+            kNoTAMQP.bindQueue(kNoTAMQP.QUEUE_NAME_FOG_IN,
+                kNoTAMQP.EXCHANGE_NAME_FOG,
+                kNoTAMQP.BINDING_KEY_DATA_PUBLISH)
+
         }
         callback(KNoTAMQPController(kNoTAMQP))
     }
