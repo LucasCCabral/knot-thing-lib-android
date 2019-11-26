@@ -22,4 +22,12 @@ class KNoTAMQPController( val kNoTAMQP: KNoTAMQP) : KNoTMessager {
         )
     }
 
+    override fun authenticate(kNoTThingAuth: KNoTThingAuth) {
+        kNoTAMQP.publish(
+            Gson().toJson(kNoTThingAuth),
+            kNoTAMQP.EXCHANGE_NAME_FOG,
+            kNoTAMQP.BINDING_KEY_AUTHENTICATE
+        )
+    }
+
 }

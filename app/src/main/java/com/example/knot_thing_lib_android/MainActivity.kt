@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.knot_thing.KNoTAMQPFactory
 import com.example.knot_thing.KNoTMessager
+import com.example.knot_thing_lib_android.KNoTControlMessages.KNoTThingAuth
 import com.example.knot_thing_lib_android.KNoTControlMessages.KNoTThingRegister
 import com.example.knot_thing_lib_android.KNoTControlMessages.KNoTThingUnregister
 import kotlinx.android.synthetic.main.activity_main.register_button
 import kotlinx.android.synthetic.main.activity_main.unregister_button
+import kotlinx.android.synthetic.main.activity_main.authenticate_button
 import org.jetbrains.anko.doAsync
 
 class MainActivity : AppCompatActivity() {
@@ -23,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         KNoTAMQPFactory().getKNoTProtocolMessager(kNoTAMQP, setKNoTMessager)
         val kNoTThingRegister = KNoTThingRegister("1h3kkx1gi13idqe", "pocophone-lucas")
         val kNoTThingUnregister = KNoTThingUnregister("1h3kkx1gi13idqe")
+        val kNoTThingAuth = KNoTThingAuth("1h3kkx1gi13idqe", "ejfhwekhrui234huirh23uf")
 
         register_button.setOnClickListener {
             doAsync { kNoTMessager.register(kNoTThingRegister) }
@@ -31,5 +34,10 @@ class MainActivity : AppCompatActivity() {
         unregister_button.setOnClickListener {
             doAsync { kNoTMessager.unregister(kNoTThingUnregister) }
         }
+
+        authenticate_button.setOnClickListener {
+            doAsync { kNoTMessager.authenticate(kNoTThingAuth) }
+        }
+
     }
 }
