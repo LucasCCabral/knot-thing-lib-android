@@ -26,6 +26,10 @@ class KNoTAMQPFactory() {
                 kNoTAMQP.EXCHANGE_NAME_FOG,
                 kNoTAMQP.BINDING_KEY_AUTHENTICATE)
 
+            kNoTAMQP.bindQueue(kNoTAMQP.QUEUE_NAME_FOG_IN,
+                kNoTAMQP.EXCHANGE_NAME_FOG,
+                kNoTAMQP.BINDING_KEY_SCHEMA_UPDATE)
+
         }
         callback(KNoTAMQPController(kNoTAMQP))
     }
