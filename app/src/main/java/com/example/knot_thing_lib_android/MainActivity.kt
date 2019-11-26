@@ -5,7 +5,9 @@ import android.os.Bundle
 import com.example.knot_thing.KNoTAMQPFactory
 import com.example.knot_thing.KNoTMessager
 import com.example.knot_thing_lib_android.KNoTControlMessages.KNoTThingRegister
+import com.example.knot_thing_lib_android.KNoTControlMessages.KNoTThingUnregister
 import kotlinx.android.synthetic.main.activity_main.register_button
+import kotlinx.android.synthetic.main.activity_main.unregister_button
 import org.jetbrains.anko.doAsync
 
 class MainActivity : AppCompatActivity() {
@@ -20,9 +22,14 @@ class MainActivity : AppCompatActivity() {
         val setKNoTMessager = { kNoTMessagerAux : KNoTMessager -> kNoTMessager = kNoTMessagerAux }
         KNoTAMQPFactory().getKNoTProtocolMessager(kNoTAMQP, setKNoTMessager)
         val kNoTThingRegister = KNoTThingRegister("1h3kkx1gi13idqe", "pocophone-lucas")
+        val kNoTThingUnregister = KNoTThingUnregister("1h3kkx1gi13idqe")
 
         register_button.setOnClickListener {
             doAsync { kNoTMessager.register(kNoTThingRegister) }
+        }
+
+        unregister_button.setOnClickListener {
+            doAsync { kNoTMessager.unregister(kNoTThingUnregister) }
         }
     }
 }

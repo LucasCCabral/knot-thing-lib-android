@@ -14,4 +14,12 @@ class KNoTAMQPController( val kNoTAMQP: KNoTAMQP) : KNoTMessager {
         )
     }
 
+    override fun unregister(kNoTThingUnregister: KNoTThingUnregister) {
+        kNoTAMQP.publish(
+            Gson().toJson(kNoTThingUnregister),
+            kNoTAMQP.EXCHANGE_NAME_FOG,
+            kNoTAMQP.BINDING_KEY_UNREGISTER
+        )
+    }
+
 }

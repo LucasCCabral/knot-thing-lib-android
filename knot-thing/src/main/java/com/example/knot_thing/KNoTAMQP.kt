@@ -12,6 +12,7 @@ class KNoTAMQP(username : String, password : String, hostname : String, port : I
     val EXCHANGE_NAME_FOG = "fog"
 
     val BINDING_KEY_REGISTER = "device.register"
+    val BINDING_KEY_UNREGISTER = "device.unregister"
 
     val QUEUE_NAME_FOG_IN = "fogin"
     val QUEUE_NAME_FOG_OUT = "fogout"
