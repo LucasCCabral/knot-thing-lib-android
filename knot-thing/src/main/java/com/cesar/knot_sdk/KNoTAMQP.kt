@@ -27,6 +27,7 @@ class KNoTAMQP(username : String, password : String, hostname : String, port : I
     val BINDING_KEY_REGISTER = "device.register"
     val BINDING_KEY_UNREGISTER = "device.unregister"
     val BINDING_KEY_AUTHENTICATE = "device.cmd.auth"
+    val BINDING_KEY_SCHEMA_UPDATE = "schema.update"
 
     val QUEUE_NAME_FOG_IN = "fogIn"
     val QUEUE_NAME_FOG_OUT = "fogOut"
