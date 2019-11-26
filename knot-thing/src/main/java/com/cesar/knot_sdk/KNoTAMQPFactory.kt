@@ -24,10 +24,15 @@ class KNoTAMQPFactory() {
                 kNoTAMQP.createQueue(kNoTAMQP.QUEUE_NAME_FOG_IN)
                 kNoTAMQP.createQueue(kNoTAMQP.QUEUE_NAME_FOG_OUT)
 
-                kNoTAMQP.bindQueue(kNoTAMQP.QUEUE_NAME_FOG_IN,
-                    kNoTAMQP.EXCHANGE_NAME_FOG,
-                    kNoTAMQP.BINDING_KEY_REGISTER)
-            }
+            kNoTAMQP.bindQueue(kNoTAMQP.QUEUE_NAME_FOG_IN,
+                kNoTAMQP.EXCHANGE_NAME_FOG,
+                kNoTAMQP.BINDING_KEY_REGISTER)
+
+            kNoTAMQP.bindQueue(kNoTAMQP.QUEUE_NAME_FOG_IN,
+                kNoTAMQP.EXCHANGE_NAME_FOG,
+                kNoTAMQP.BINDING_KEY_UNREGISTER)
+
+        }
         callback(KNoTAMQPController(kNoTAMQP))
     }
 }
