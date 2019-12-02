@@ -4,6 +4,11 @@ import com.rabbitmq.client.AMQP
 import com.rabbitmq.client.Channel
 import com.rabbitmq.client.Connection
 import com.rabbitmq.client.ConnectionFactory
+import com.rabbitmq.client.DefaultConsumer
+import com.rabbitmq.client.Envelope
+import com.cesar.knot_sdk.knot_messages.KNoTThingRegistered
+import com.google.gson.Gson
+import java.io.IOException
 
 
 /**
@@ -25,6 +30,7 @@ class KNoTAMQP(username : String, password : String, hostname : String, port : I
     val EXCHANGE_NAME_FOG = "fog"
 
     val BINDING_KEY_REGISTER = "device.register"
+    val BINDING_KEY_REGISTERED = "device.registered"
     val BINDING_KEY_UNREGISTER = "device.unregister"
     val BINDING_KEY_AUTHENTICATE = "device.cmd.auth"
     val BINDING_KEY_SCHEMA_UPDATE = "schema.update"
@@ -32,6 +38,9 @@ class KNoTAMQP(username : String, password : String, hostname : String, port : I
 
     val QUEUE_NAME_FOG_IN = "fogIn"
     val QUEUE_NAME_FOG_OUT = "fogOut"
+
+    val CONSUMER_NAME = "KNoTThingConsumer"
+
 
     val factory = ConnectionFactory()
 
@@ -119,6 +128,36 @@ class KNoTAMQP(username : String, password : String, hostname : String, port : I
             messageProperties,
             messageBodyBytes
         )
+    }
+
+    /**
+     * Creates a consumer that listens to an AQMP queue. This is used to listen to the messages
+     * being sent by the cloud to the Thing. The queue name should be one that
+     * @param queueName the name of the queue that the Thing will listen to
+     * @param consumerTag a name for this consumer, the purpose of this parameter is to
+     * destroy or release the consumer
+     */
+    fun createConsumer(queueName : String, consumerTag : String) {
+        val autoAck = false
+        channel.basicConsume(queueName, autoAck, consumerTag,
+            object : DefaultConsumer(channel) {
+                @Throws(IOException::class)
+                override fun handleDelivery(
+                    consumerTag: String,
+                    envelope: Envelope,
+                    properties: AMQP.BasicProperties,
+                    body: ByteArray
+                ) {
+                    val deliveryTag = envelope.getDeliveryTag()
+                    val bodyJson = String(body)
+                    val kNoTThingRegistered = Gson().fromJson(
+                        bodyJson,
+                        KNoTThingRegistered::class.java
+                    )
+
+                    channel.basicAck(deliveryTag, false)
+                }
+            })
     }
 
     /**
