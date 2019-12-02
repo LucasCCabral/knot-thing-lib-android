@@ -44,6 +44,13 @@ class KNoTAMQPFactory() {
                 kNoTAMQP.EXCHANGE_NAME_FOG,
                 kNoTAMQP.BINDING_KEY_DATA_PUBLISH)
 
+            kNoTAMQP.bindQueue(kNoTAMQP.QUEUE_NAME_FOG_OUT,
+                kNoTAMQP.EXCHANGE_NAME_FOG,
+                kNoTAMQP.BINDING_KEY_REGISTERED)
+
+            kNoTAMQP.createConsumer(kNoTAMQP.QUEUE_NAME_FOG_OUT,
+                kNoTAMQP.CONSUMER_NAME)
+
         }
         callback(KNoTAMQPController(kNoTAMQP))
     }
