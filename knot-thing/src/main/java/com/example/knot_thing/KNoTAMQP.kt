@@ -20,8 +20,8 @@ class KNoTAMQP(username : String, password : String, hostname : String, port : I
     val BINDING_KEY_SCHEMA_UPDATE = "schema.update"
     val BINDING_KEY_DATA_PUBLISH = "data.publish"
 
-    val QUEUE_NAME_FOG_IN = "fogin"
-    val QUEUE_NAME_FOG_OUT = "fogout"
+    val QUEUE_NAME_FOG_IN = "fogIn"
+    val QUEUE_NAME_FOG_OUT = "fogOut"
 
     val CONSUMER_NAME = "KNoTThingConsumer"
 
