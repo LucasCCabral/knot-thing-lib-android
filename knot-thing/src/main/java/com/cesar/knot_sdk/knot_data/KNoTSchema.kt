@@ -1,4 +1,4 @@
-package com.cesar.knot_sdk.knot_messages
+package com.cesar.knot_sdk.knot_data
 
 /**
  * This class is an abstraction for the meta-data of it's associated KNoTValue. For instance

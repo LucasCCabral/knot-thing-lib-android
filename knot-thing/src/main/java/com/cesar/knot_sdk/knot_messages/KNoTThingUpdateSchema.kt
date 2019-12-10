@@ -7,5 +7,5 @@ package com.cesar.knot_sdk.knot_messages
  */
 data class KNoTThingUpdateSchema (
     val id : String,
-    val schema : List<KNoTThingSchema>
+    val schema : List<KNoTSchema>
 )

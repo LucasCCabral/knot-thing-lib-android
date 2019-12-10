@@ -6,6 +6,6 @@ package com.cesar.knot_sdk.knot_messages
  * @property data the data batch that is to be deployed
  */
 data class KNoTThingUpdateData(
-    val id : String,
-    val data : List<KNoTThingData>
+    val id : String//,
+    //val data : List<KNoTThingData>
 )

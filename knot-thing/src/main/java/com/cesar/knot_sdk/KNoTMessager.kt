@@ -14,6 +14,12 @@ import com.cesar.knot_sdk.knot_messages.KNoTThingUpdateSchema
  */
 interface KNoTMessager {
 
+    //These methods should wait for a json.
+    // another interface should have the implementation for publishInt =
+    //                                                      publishData(Gson().toJson(knotThingInt))
+
+    //TODO: This interface should expect Strings! and not composite types
+
     /**
      * Register a KNoT Thing in a KNoT Cloud.
      */
