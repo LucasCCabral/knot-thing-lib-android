@@ -8,7 +8,7 @@ import com.example.knot_thing_lib_android.KNoTControlMessages.KNoTThingUpdateDat
 
 /**
  * This interface represents all messages that can be delivered with the KNoT protocol. Classes
- * that implement this interface can use any kind of technology to send these messages (zzzzzzzzAMQP,
+ * that implement this interface can use any kind of technology to send these messages (AMQP,
  * WebSockets, etc), but should offer these operations.
  */
 interface KNoTMessager {
@@ -16,6 +16,8 @@ interface KNoTMessager {
     //These methods should wait for a json.
     // another interface should have the implementation for publishInt =
     //                                                      publishData(Gson().toJson(knotThingInt))
+
+    //TODO: This interface should expect Strings! and not composite types
     /**
      * KNoTThingUpdateData
      */

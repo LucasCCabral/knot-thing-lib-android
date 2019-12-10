@@ -6,6 +6,6 @@ package com.example.knot_thing_lib_android.KNoTControlMessages
  * @property data the data batch that is to be deployed
  */
 data class KNoTThingUpdateData(
-    val id : String,
-    val data : List<KNoTThingData>
+    val id : String//,
+    //val data : List<KNoTThingData>
 )

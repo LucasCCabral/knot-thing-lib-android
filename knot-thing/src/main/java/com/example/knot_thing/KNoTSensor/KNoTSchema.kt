@@ -9,7 +9,7 @@ package com.example.knot_thing_lib_android.KNoTControlMessages
  * @property unit represents the unit associated with this KNoTValue
  * @property valueType the value type (e.g.: int, string, boolean ...)
  */
-data class KNoTThingSchema(
+data class KNoTSchema(
     val sensorId : Int,
     val valueType : Int,
     val unit : Int,

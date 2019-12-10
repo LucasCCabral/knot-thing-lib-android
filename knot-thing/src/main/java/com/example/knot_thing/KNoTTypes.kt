@@ -114,6 +114,7 @@ object KNoTTypes {
     const val KNOT_UNIT_ENERGY_KCAL             =       0x06
 
 // definition of value type
+    const val KNOT_VALUE_NULL                   =       0x00
     const val KNOT_VALUE_TYPE_INT               =       0x01
     const val KNOT_VALUE_TYPE_FLOAT             =       0x02
     const val KNOT_VALUE_TYPE_BOOL              =       0x03

@@ -139,7 +139,8 @@ class KNoTAMQP(username : String, password : String, hostname : String, port : I
                 ) {
                     val deliveryTag = envelope.getDeliveryTag()
                     val bodyJson = String(body)
-                    val kNoTThingRegistered = Gson().fromJson(bodyJson,
+                    val kNoTThingRegistered = Gson().fromJson(
+                        bodyJson,
                         KNoTThingRegistered::class.java
                     )
 
