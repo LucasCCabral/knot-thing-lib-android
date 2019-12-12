@@ -8,13 +8,15 @@ import com.cesar.knot_sdk.KNoTMessager
 import com.cesar.knot_sdk.KNoTTypes.KNOT_TYPE_ID_SWITCH
 import com.cesar.knot_sdk.KNoTTypes.KNOT_UNIT_NOT_APPLICABLE
 import com.cesar.knot_sdk.KNoTTypes.KNOT_VALUE_TYPE_BOOL
+import com.cesar.knot_sdk.KNoTTypes.KNOT_VALUE_TYPE_INT
+import com.cesar.knot_sdk.KNoTTypes.KNOT_VALUE_TYPE_RAW
 import com.cesar.knot_sdk.knot_messages.KNoTSchema
 import com.cesar.knot_sdk.knot_messages.KNoTThingAuth
 import com.cesar.knot_sdk.knot_messages.KNoTThingData
 import com.cesar.knot_sdk.knot_messages.KNoTThingRegister
 import com.cesar.knot_sdk.knot_messages.KNoTThingUnregister
 import com.cesar.knot_sdk.knot_messages.KNoTThingUpdateSchema
-import com.cesar.knot_thing.KNoTDataMessageParser
+import com.example.knot_sdk.KNoTDataMessageParser
 import kotlinx.android.synthetic.main.activity_main.register_button
 import kotlinx.android.synthetic.main.activity_main.unregister_button
 import kotlinx.android.synthetic.main.activity_main.authenticate_button
@@ -60,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                 "  },\n" +
                 "  {\n" +
                 "      \"sensorId\": 2,\n" +
-                "          \"value\": true\n" +
+                "          \"value\": \"this is a string\"\n" +
                 "  },\n" +
                 "{\n" +
                 "      \"sensorId\": 3,\n" +
@@ -68,15 +70,18 @@ class MainActivity : AppCompatActivity() {
                 "  },\n" +
                 "{\n" +
                 "      \"sensorId\": 4,\n" +
-                "          \"value\": true\n" +
+                "          \"value\": 57\n" +
                 "  }\n" +
                 "\n" +
                 "]\n" +
                 "}\n"
 
         var  kNoTDataMessageParser =  KNoTDataMessageParser()
+        kNoTDataMessageParser.addSensor(2, KNOT_VALUE_TYPE_RAW)
         kNoTDataMessageParser.addSensor(3, KNOT_VALUE_TYPE_BOOL)
+        kNoTDataMessageParser.addSensor(4, KNOT_VALUE_TYPE_INT)
         kNoTDataMessageParser.parseData(myjson)
+
         val kNoTThingUpdateSchema = KNoTThingUpdateSchema(THING_ID, kNoTThingSchema)
 
         val knotData = mutableListOf(

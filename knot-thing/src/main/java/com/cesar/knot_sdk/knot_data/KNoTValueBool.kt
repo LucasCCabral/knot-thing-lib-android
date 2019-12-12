@@ -8,4 +8,7 @@ class KNoTValueBool (
     override fun lesser(kNoTValue: KNoTValueBool) = this.value && kNoTValue.value
 
     override fun greater(kNoTValue: KNoTValueBool) = this.value || kNoTValue.value
+
+    override fun toString() = "SensorID: " + sensorId + "\nValue: " + value
+
 }
