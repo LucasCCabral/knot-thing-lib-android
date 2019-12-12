@@ -13,56 +13,67 @@ import com.google.gson.JsonParser
 class KNoTDataMessageParser {
 
     //first string is the sensor id, second is the type
-    val sensorHash = mutableMapOf<Int, Int>()
+    private val sensorHash = mutableMapOf<Int, Int>()
+    private val VALUE = "value"
+    private val DATA = "data"
+    private val SENSOR_ID = "sensorId"
+    private val ILLEGAL_ARGUMENT_MESSAGE = "The KNoTDataMessageParser is only prepared to handle " +
+            "KNOT_VALUE_TYPE_INT, KNOT_VALUE_TYPE_FLOAT, KNOT_VALUE_TYPE_BOOL, " +
+            "KNOT_VALUE_TYPE_RAW, KNOT_VALUE_NULL."
 
-    fun parseData(knotData : String) {
+    fun parseData(knotData : String) : List<Any> {
         val jelement : JsonElement = JsonParser().parse(knotData)
         var jobject = jelement.asJsonObject
-        val jarray = jobject.getAsJsonArray("data")
+        val jarray = jobject.getAsJsonArray(DATA)
         val data = mutableListOf<Any>()
         var type : Int
         var id : Int
         jarray.forEach {
+            Log.d("DEV-LOG", it.toString())
             id = getSensorId(it)
-            type = getSensorType(it, id)
+            type = getSensorType(id)
             when(type) {
                 KNOT_VALUE_TYPE_INT -> {
-                    data.add(KNoTValueInt(id, it.asJsonObject.get("sensorId").asInt))
+                    data.add(KNoTValueInt(id, it.asJsonObject.get(VALUE).asInt))
                 }
                 KNOT_VALUE_TYPE_FLOAT -> {
-                    data.add(KNoTValueFloat(id, it.asJsonObject.get("sensorId").asFloat))
+                    data.add(KNoTValueFloat(id, it.asJsonObject.get(VALUE).asFloat))
                 }
                 KNOT_VALUE_TYPE_BOOL -> {
-                    data.add(KNoTValueBool(id, it.asJsonObject.get("sensorId").asBoolean))
+                    data.add(KNoTValueBool(id, it.asJsonObject.get(VALUE).asBoolean))
                 }
                 KNOT_VALUE_TYPE_RAW -> {
-                    data.add(KNoTValueString(id, it.asJsonObject.get("sensorId").asString))
+                    data.add(KNoTValueString(id, it.asJsonObject.get(VALUE).asString))
                 }
                 KNOT_VALUE_NULL -> { }
             }
         }
 
-        data.forEach{
-            Log.d("DEV-LOG", it.toString())
+        return data
+    }
+
+    fun addSensor(key : Int, value : Int) {
+        when(value) {
+            KNOT_VALUE_TYPE_INT -> { }
+            KNOT_VALUE_TYPE_FLOAT -> { }
+            KNOT_VALUE_TYPE_BOOL -> { }
+            KNOT_VALUE_TYPE_RAW -> { }
+            KNOT_VALUE_NULL -> { }
+            else -> {throw IllegalArgumentException(ILLEGAL_ARGUMENT_MESSAGE)}
         }
-
+        sensorHash[key] = value
     }
 
-    fun addSensor(key : Int, value : Int) = sensorHash.put(key, value)
+    private fun getSensorId(knotDataElement: JsonElement)
+            = knotDataElement.asJsonObject.get(SENSOR_ID).asInt
 
-    private fun getSensorId(knotDataElement: JsonElement) : Int {
-        val sensorId = knotDataElement.asJsonObject.get("sensorId").asInt
-        return sensorId
-    }
-
-    private fun getSensorType(knotDataElement: JsonElement, sensorId : Int) : Int {
+    private fun getSensorType(sensorId : Int) : Int {
         val sensorType = sensorHash.get(sensorId)
 
-        if(sensorType != null) {
+        if(sensorType != null)
             return sensorType
-        } else {
+        else
             Log.d("DEV-LOG", "This sensor has not been registered.")
-        }
 
         return KNOT_VALUE_NULL
     }

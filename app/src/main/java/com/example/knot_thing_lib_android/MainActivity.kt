@@ -8,6 +8,8 @@ import com.example.knot_thing.KNoTMessager
 import com.example.knot_thing.KNoTTypes.KNOT_TYPE_ID_SWITCH
 import com.example.knot_thing.KNoTTypes.KNOT_UNIT_NOT_APPLICABLE
 import com.example.knot_thing.KNoTTypes.KNOT_VALUE_TYPE_BOOL
+import com.example.knot_thing.KNoTTypes.KNOT_VALUE_TYPE_INT
+import com.example.knot_thing.KNoTTypes.KNOT_VALUE_TYPE_RAW
 import com.example.knot_thing_lib_android.KNoTControlMessages.KNoTThingAuth
 import com.example.knot_thing_lib_android.KNoTControlMessages.KNoTThingRegister
 import com.example.knot_thing_lib_android.KNoTControlMessages.KNoTSchema
@@ -55,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 "  },\n" +
                 "  {\n" +
                 "      \"sensorId\": 2,\n" +
-                "          \"value\": true\n" +
+                "          \"value\": \"this is a string\"\n" +
                 "  },\n" +
                 "{\n" +
                 "      \"sensorId\": 3,\n" +
@@ -63,15 +65,18 @@ class MainActivity : AppCompatActivity() {
                 "  },\n" +
                 "{\n" +
                 "      \"sensorId\": 4,\n" +
-                "          \"value\": true\n" +
+                "          \"value\": 57\n" +
                 "  }\n" +
                 "\n" +
                 "]\n" +
                 "}\n"
 
         var  kNoTDataMessageParser =  KNoTDataMessageParser()
+        kNoTDataMessageParser.addSensor(2, KNOT_VALUE_TYPE_RAW)
         kNoTDataMessageParser.addSensor(3, KNOT_VALUE_TYPE_BOOL)
+        kNoTDataMessageParser.addSensor(4, KNOT_VALUE_TYPE_INT)
         kNoTDataMessageParser.parseData(myjson)
+
         val kNoTThingUpdateSchema = KNoTThingUpdateSchema(THING_ID, kNoTThingSchema)
        /* val knotData = mutableListOf(KNoTThingData<Boolean>(SENSOR_ID,true),
             KNoTThingData<Boolean>(SENSOR_ID,false),
